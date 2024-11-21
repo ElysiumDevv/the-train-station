@@ -1,93 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import '../styles/Hero.css';
 
 const Hero = () => {
-  const [videoUrl, setVideoUrl] = useState('/videos/hero-bg.mp4');
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const video = document.getElementById('hero-video');
+    if (video) {
+      video.addEventListener('loadeddata', () => setVideoLoaded(true));
+      return () => video.removeEventListener('loadeddata', () => setVideoLoaded(true));
+    }
+  }, []);
 
   return (
-    <div className="hero-container">
-      {/* Video or Image background */}
-      <video
-        className="hero-video"
-        autoPlay
-        loop
-        muted
-        playsInline
-        onLoadedData={() => setIsVideoLoaded(true)}
-        style={{ opacity: isVideoLoaded ? 1 : 0 }}
-      >
-        <source src={videoUrl} type="video/mp4" />
-      </video>
+    <section className="hero">
+      <div className="hero-background">
+        <video
+          id="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/core/hero-bg.jpg"
+          className={videoLoaded ? 'loaded' : ''}
+        >
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        </video>
+        <div className="overlay"></div>
+        <div className="gradient-overlay"></div>
+      </div>
 
-      {/* Fallback image while video loads */}
-      {!isVideoLoaded && (
-        <div 
-          className="hero-image" 
-          style={{ 
-            backgroundImage: `url(${process.env.PUBLIC_URL}/images/core/hero-bg.jpg)` 
-          }} 
-        />
-      )}
-
-      {/* Dark overlay */}
-      <div className="hero-overlay"></div>
-
-      {/* Content */}
-      <motion.div 
-        className="hero-content"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <div className="hero-content">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8 }}
         >
           The Train Station
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="hero-subtitle"
         >
-          Where Music Comes Alive
+          Appalachia's Home for Original Artists
         </motion.p>
-        <motion.div
+        <motion.div 
           className="hero-buttons"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <button 
-            className="primary-button"
-            onClick={() => document.getElementById('events').scrollIntoView({ behavior: 'smooth' })}
-          >
+          <Link to="/calendar" className="hero-button primary-button">
             View Events
-          </button>
-          <button 
-            className="secondary-button"
-            onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-          >
-            Book Venue
-          </button>
+          </Link>
+          <Link to="/venue" className="hero-button secondary-button outlined">
+            Explore the Venue
+          </Link>
         </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div 
-        className="scroll-indicator"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1 }}
-        onClick={() => document.getElementById('events').scrollIntoView({ behavior: 'smooth' })}
-      >
-        <div className="scroll-text">Scroll to explore</div>
-        <div className="scroll-arrow"></div>
-      </motion.div>
-    </div>
+      </div>
+    </section>
   );
 };
 

@@ -1,94 +1,96 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import '../styles/News.css';
 
 const News = () => {
-  // This would typically come from an API or CMS
-  const [newsArticles] = useState([
-    {
-      id: 1,
-      title: "The Train Station Celebrates 100 Years of History",
-      date: "2023-12-15",
-      excerpt: "Join us as we commemorate a century of music, dance, and community in our historic venue.",
-      image: "/news/centennial.jpg",
-      category: "News from The Train Station",
-      content: "This December marks an incredible milestone..."
-    },
-    {
-      id: 2,
-      title: "New Sound System Installation Complete",
-      date: "2023-11-30",
-      excerpt: "We're excited to announce the completion of our state-of-the-art sound system upgrade.",
-      image: "/news/sound-system.jpg",
-      category: "News from The Train Station",
-      content: "After months of careful planning..."
-    },
-    {
-      id: 3,
-      title: "Introducing Our New Line Dancing Program",
-      date: "2023-11-15",
-      excerpt: "Weekly line dancing classes for all skill levels, starting this month!",
-      image: "/news/line-dancing.jpg",
-      category: "News from The Train Station",
-      content: "We're thrilled to announce..."
-    }
-  ]);
+    const newsItems = [
+        {
+            title: "Upcoming Events",
+            description: "Check out our latest lineup of live performances, featuring both local talents and touring artists.",
+            icon: "📅",
+            link: "/calendar",
+            color: "#FF6B6B"
+        },
+        {
+            title: "Dance Class Schedule",
+            description: "New dance classes added! Join us for beginner and advanced line dancing sessions.",
+            icon: "👢",
+            link: "/calendar",
+            color: "#4ECDC4"
+        },
+        {
+            title: "Venue Updates",
+            description: "We're constantly improving our venue to enhance your experience. See what's new!",
+            icon: "🏛️",
+            link: "/venue",
+            color: "#FFD93D"
+        }
+    ];
 
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  };
-
-  return (
-    <div className="news-container">
-      <motion.section 
-        className="news-header"
-        initial="initial"
-        animate="animate"
-        variants={fadeIn}
-      >
-        <h1>News from The Train Station</h1>
-        <p>Stay up to date with the latest happenings at our venue</p>
-      </motion.section>
-
-      <div className="news-grid">
-        {newsArticles.map((article, index) => (
-          <motion.article 
-            key={article.id}
-            className="news-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2 }}
-          >
-            <div className="news-image">
-              <img src={article.image} alt={article.title} />
-              <div className="news-date">{new Date(article.date).toLocaleDateString()}</div>
+    return (
+        <motion.section 
+            className="news-section"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+        >
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="section-title"
+            >
+                Latest Updates
+            </motion.h2>
+            
+            <div className="news-grid">
+                {newsItems.map((item, index) => (
+                    <Link 
+                        key={index}
+                        to={item.link}
+                        className="news-link"
+                        onClick={() => {
+                            window.scrollTo(0, 0);
+                        }}
+                    >
+                        <motion.div
+                            className="news-card"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ 
+                                duration: 0.5,
+                                delay: index * 0.2,
+                                ease: "easeOut"
+                            }}
+                            whileHover={{ 
+                                scale: 1.05,
+                                transition: { duration: 0.2 }
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            style={{
+                                borderColor: item.color
+                            }}
+                        >
+                            <div className="news-content">
+                                <div className="news-icon" style={{ backgroundColor: item.color }}>
+                                    {item.icon}
+                                </div>
+                                <h3>{item.title}</h3>
+                                <p>{item.description}</p>
+                                <div className="news-footer">
+                                    <span className="read-more">Read More →</span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </Link>
+                ))}
             </div>
-            <div className="news-content">
-              <h2>{article.title}</h2>
-              <p>{article.excerpt}</p>
-              <button className="read-more">Read More</button>
-            </div>
-          </motion.article>
-        ))}
-      </div>
-
-      <motion.div 
-        className="newsletter-signup"
-        initial="initial"
-        animate="animate"
-        variants={fadeIn}
-      >
-        <h3>Stay Updated</h3>
-        <p>Subscribe to our newsletter for the latest news and events</p>
-        <form className="signup-form">
-          <input type="email" placeholder="Enter your email" />
-          <button type="submit">Subscribe</button>
-        </form>
-      </motion.div>
-    </div>
-  );
+        </motion.section>
+    );
 };
 
 export default News;

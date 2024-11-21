@@ -261,6 +261,13 @@ const EventCalendar = () => {
         eventPropGetter={eventStyleGetter}
         onSelectEvent={handleSelectEvent}
         popup
+        views={['month', 'week', 'day']}
+        defaultView="month"
+        selectable
+        onNavigate={(date) => {
+          // This enables month navigation
+          return date;
+        }}
       />
 
       {/* Event Categories Overview Section */}

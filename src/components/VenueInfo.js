@@ -1,130 +1,159 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import '../styles/VenueInfo.css';
 
 const VenueInfo = () => {
-  const fadeIn = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  };
+    const venueImages = [
+        {
+            src: "/images/venue/exterior-day.png",
+            alt: "The Train Station exterior during day",
+            title: "Historic Venue"
+        },
+        {
+            src: "/images/venue/main-stage.png",
+            alt: "Main performance stage",
+            title: "Professional Stage"
+        },
+        {
+            src: "/images/venue/seating-area.jpg",
+            alt: "Comfortable seating area",
+            title: "Spacious Seating"
+        },
+        {
+            src: "/images/venue/exterior-night.jpg",
+            alt: "The Train Station at night",
+            title: "Evening Ambiance"
+        }
+    ];
 
-  const teamMembers = [
-    {
-      name: "Sarah Johnson",
-      role: "Venue Director",
-      bio: "With over 15 years in event management, Sarah brings her passion for music and community building to The Train Station.",
-      image: "/team/sarah.jpg"
-    },
-    {
-      name: "Mike Rodriguez",
-      role: "Technical Director",
-      bio: "Mike ensures our sound and lighting systems are always delivering the best possible experience for both artists and audiences.",
-      image: "/team/mike.jpg"
-    },
-    {
-      name: "Lisa Chen",
-      role: "Events Coordinator",
-      bio: "Lisa's creative vision and attention to detail help make every event at The Train Station unique and memorable.",
-      image: "/team/lisa.jpg"
-    }
-  ];
+    const venueFeatures = [
+        {
+            title: "Main Stage",
+            description: "Professional sound system and lighting for unforgettable performances.",
+            icon: "🎭",
+            color: "#9B5DE5"
+        },
+        {
+            title: "Capacity",
+            description: "Spacious venue accommodating up to 500 guests across two floors.",
+            icon: "👥",
+            color: "#F15BB5"
+        },
+        {
+            title: "Amenities",
+            description: "Full kitchen, private lounge, pool tables, and professional equipment.",
+            icon: "✨",
+            color: "#00BBF9"
+        },
+        {
+            title: "Events",
+            description: "Perfect for concerts, weddings, private parties, and community gatherings.",
+            icon: "🎉",
+            color: "#00F5D4"
+        }
+    ];
 
-  return (
-    <div className="venue-info-container">
-      <motion.section 
-        className="about-section"
-        initial="initial"
-        animate="animate"
-        variants={fadeIn}
-      >
-        <h2>About The Train Station</h2>
-        <p>
-          Located in the heart of the city, The Train Station is a historic venue that has been 
-          transformed into a vibrant cultural hub. Originally built in 1923 as a railway station, 
-          our venue maintains its classic architecture while providing modern amenities and 
-          state-of-the-art sound and lighting systems.
-        </p>
-        <p>
-          With a capacity of 500 people, we host a diverse range of events from live music 
-          performances and dance classes to private events and community gatherings.
-        </p>
-      </motion.section>
-
-      <motion.section 
-        className="mission-section"
-        initial="initial"
-        animate="animate"
-        variants={fadeIn}
-      >
-        <h2>Our Mission</h2>
-        <p>
-          At The Train Station, our mission is to create an inclusive space where music, dance, 
-          and community converge. We strive to:
-        </p>
-        <ul>
-          <li>Provide a platform for both established and emerging artists</li>
-          <li>Foster a vibrant community through music and dance</li>
-          <li>Preserve and celebrate our historic building's heritage</li>
-          <li>Create memorable experiences for all who visit</li>
-        </ul>
-      </motion.section>
-
-      <motion.section 
-        className="team-section"
-        initial="initial"
-        animate="animate"
-        variants={fadeIn}
-      >
-        <h2>Our Team</h2>
-        <div className="team-grid">
-          {teamMembers.map((member, index) => (
-            <motion.div 
-              key={member.name}
-              className="team-member"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
+    return (
+        <motion.section 
+            className="venue-info-section"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+        >
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="section-title"
             >
-              <div className="member-image">
-                <img src={member.image} alt={member.name} />
-              </div>
-              <h3>{member.name}</h3>
-              <h4>{member.role}</h4>
-              <p>{member.bio}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
+                Our Venue
+            </motion.h2>
+            
+            <motion.p 
+                className="venue-description"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+            >
+                The Train Station is more than a venue; it's a cultural landmark in Corbin. 
+                From our dedication to Appalachian music to innovative projects like The Dark Room 
+                and live recording capabilities, we bridge tradition with modern entertainment.
+            </motion.p>
 
-      <motion.section 
-        className="facilities-section"
-        initial="initial"
-        animate="animate"
-        variants={fadeIn}
-      >
-        <h2>Facilities</h2>
-        <div className="facilities-grid">
-          <div className="facility">
-            <h3>Main Hall</h3>
-            <p>500-person capacity venue with professional sound and lighting</p>
-          </div>
-          <div className="facility">
-            <h3>Dance Floor</h3>
-            <p>Spacious hardwood dance floor perfect for classes and events</p>
-          </div>
-          <div className="facility">
-            <h3>Bar & Lounge</h3>
-            <p>Full-service bar with comfortable seating areas</p>
-          </div>
-          <div className="facility">
-            <h3>Green Room</h3>
-            <p>Private space for performers with modern amenities</p>
-          </div>
-        </div>
-      </motion.section>
-    </div>
-  );
+            <div className="venue-gallery">
+                {venueImages.map((image, index) => (
+                    <motion.div
+                        key={index}
+                        className="venue-image-container"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ 
+                            duration: 0.5,
+                            delay: index * 0.2,
+                            ease: "easeOut"
+                        }}
+                    >
+                        <img 
+                            src={image.src} 
+                            alt={image.alt}
+                            className="venue-image"
+                        />
+                        <div className="image-overlay">
+                            <h3>{image.title}</h3>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+
+            <div className="features-grid">
+                {venueFeatures.map((feature, index) => (
+                    <motion.div
+                        key={index}
+                        className="feature-card"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ 
+                            duration: 0.5,
+                            delay: index * 0.2,
+                            ease: "easeOut"
+                        }}
+                        whileHover={{ 
+                            scale: 1.05,
+                            transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        style={{
+                            borderColor: feature.color
+                        }}
+                    >
+                        <div className="feature-content">
+                            <div className="feature-icon" style={{ backgroundColor: feature.color }}>
+                                {feature.icon}
+                            </div>
+                            <h3>{feature.title}</h3>
+                            <p>{feature.description}</p>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+
+            <motion.div 
+                className="venue-cta"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+            >
+                <Link to="/contact" className="primary-button">Book the Venue</Link>
+            </motion.div>
+        </motion.section>
+    );
 };
 
 export default VenueInfo;

@@ -83,36 +83,92 @@
   padding: 20px;
   border-radius: 15px;
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(155, 93, 229, 0.1);
+}
+
+.rbc-toolbar {
+  margin-bottom: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rbc-toolbar button {
+  color: white;
+  background: rgba(155, 93, 229, 0.1);
+  border: 1px solid rgba(155, 93, 229, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rbc-toolbar button:hover {
+  background: rgba(155, 93, 229, 0.2);
+  transform: translateY(-1px);
+}
+
+.rbc-toolbar button.rbc-active {
+  background: linear-gradient(45deg, #9B5DE5, #F15BB5);
+  border: none;
+}
+
+.rbc-toolbar-label {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .rbc-header {
   padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffd700;
-  font-weight: 500;
+  font-weight: bold;
+  color: white;
+  background: rgba(155, 93, 229, 0.1);
+}
+
+.rbc-off-range-bg {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.rbc-today {
+  background: rgba(155, 93, 229, 0.1);
+}
+
+.rbc-event {
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+}
+
+.rbc-event:hover {
+  transform: scale(1.02);
+}
+
+.rbc-show-more {
+  color: #F15BB5;
+  background: transparent;
+  font-weight: bold;
+}
+
+.rbc-month-view, .rbc-time-view {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 1px solid rgba(155, 93, 229, 0.1);
 }
 
 .rbc-date-cell {
   color: white;
-  padding: 0.5rem;
-}
-
-.rbc-off-range-bg {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.rbc-today {
-  background: rgba(255, 215, 0, 0.1);
-}
-
-.rbc-event {
   padding: 5px;
-  font-size: 0.9rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.rbc-event-content {
-  font-weight: bold;
+.rbc-button-link {
+  color: white;
 }
 
 /* Event Details Modal */

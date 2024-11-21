@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import './App.css';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -8,42 +8,93 @@ import About from './components/About';
 import Contact from './components/Contact';
 import EventCalendar from './components/EventCalendar';
 import VenueInfo from './components/VenueInfo';
+import Venue from './components/Venue';
 import News from './components/News';
 import Blog from './components/Blog';
 import AdminImageManager from './components/AdminImageManager';
 import Footer from './components/Footer';
+import Featured from './components/Featured';
+import ScrollToTop from './utils/scrollToTop';
 
 function HomePage() {
   return (
-    <>
+    <main>
       <Hero />
-      <section id="events">
+      <section id="events" className="section">
         <EventList />
       </section>
-      <About />
-      <Contact />
-    </>
+      <Featured />
+      <section id="venue-info" className="section">
+        <VenueInfo />
+      </section>
+      <section id="about" className="section">
+        <About />
+      </section>
+      <section id="latest-news" className="section">
+        <News limit={3} showViewAll={true} />
+      </section>
+      <section id="contact" className="section">
+        <Contact />
+      </section>
+    </main>
   );
 }
 
-function App() {
+function Layout() {
   return (
-    <Router>
-      <div className="app-container">
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/calendar" element={<EventCalendar />} />
-          <Route path="/venue" element={<VenueInfo />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:category" element={<Blog />} />
-          <Route path="/admin" element={<AdminImageManager />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <div className="app-container">
+      <Navigation />
+      <ScrollToTop />
+      <Outlet />
+      <Footer />
+    </div>
   );
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "calendar",
+        element: <EventCalendar />,
+      },
+      {
+        path: "venue",
+        element: <Venue />,
+      },
+      {
+        path: "news",
+        element: <News />,
+      },
+      {
+        path: "blog",
+        element: <Blog />,
+      },
+      {
+        path: "blog/:category",
+        element: <Blog />,
+      },
+      {
+        path: "admin",
+        element: <AdminImageManager />,
+      },
+    ],
+  },
+], {
+  future: {
+    v7_startTransition: true,
+    v7_relativeSplatPath: true
+  }
+});
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;
